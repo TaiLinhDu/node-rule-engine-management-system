@@ -1,0 +1,34 @@
+image: node:latest
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+stages:
+  - test_backend
+  #- test_frontend
+  - deploy
+
+  #services:
+  #- mongo:latest
+
+test_backend:
+  stage: test_backend
+  script:
+    - cd evana-api
+    - npm install
+    - npm test
+
+  #test_frontend:
+  #stage: test_frontend
+  #image: trion/ng-cli-karma:latest
+    #script:
+    #- cd frontend/garbage-hunter-frontend
+    #- npm install
+    #- npm run test-ci
+
+deploy_aws:
+  only:
+    - master
+  stage: deploy
+  script:
+    - bash deploy/deploy.sh

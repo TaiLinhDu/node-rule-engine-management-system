@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  backend:
+    links:
+      - mongo
+    build:
+      context: ./
+      dockerfile: evana-api/docker/Dockerfile
+    ports:
+      - "3000:3000"
