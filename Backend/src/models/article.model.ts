@@ -11,7 +11,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 export interface IArticleModel extends mongoose.Document {
     name: string;
     description: string;
-    price: string;
+    price: Number;
     numberOfArticle: number;
 }
 
@@ -35,12 +35,12 @@ export const ArticleSchema: mongoose.Schema = new mongoose.Schema({
         },
 
         price: {
-            type: Float32Array,
+            type: Number,
             require: true,
             default: ''
         },
 
-        price: {
+        numberOfArticle: {
             type: Number,
             require: true,
             default: ''

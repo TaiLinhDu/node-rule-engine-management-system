@@ -6,13 +6,13 @@ import { createOrderArticle, getOrderArticle, updateOrderArticle, deleteOrderArt
 export const orderArticleRouter: express.Router = express.Router();
 
 // get a OrderArticle
-orderArticleRouter.get('/getOrderArticle', timelog, wrapAsync(getOrderArticle));
+orderArticleRouter.get('/', timelog, wrapAsync(getOrderArticle));
 
 // create new OrderArticle
-orderArticleRouter.post( '/createOrderArticle', timelog, wrapAsync(createOrderArticle));
+orderArticleRouter.post( '/', timelog, wrapAsync(createOrderArticle));
 
 // create update OrderArticle
-orderArticleRouter.put( '/updateOrderArticle', timelog, wrapAsync(updateOrderArticle));
+orderArticleRouter.put( '/', timelog, wrapAsync(updateOrderArticle));
 
 // delete OrderArticle
-orderArticleRouter.delete( '/deleteOrderArticle', timelog, wrapAsync(deleteOrderArticle));
+orderArticleRouter.delete( '/', timelog, wrapAsync(deleteOrderArticle));

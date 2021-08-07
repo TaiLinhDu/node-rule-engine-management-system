@@ -25,13 +25,11 @@ export const OrderArticleSchema: mongoose.Schema = new mongoose.Schema({
             type: String,
             required: true,
             unique: true,
-            index: true
         },
         orderId: {
             type: String,
             required: true,
             unique: true,
-            index: true
         },
         numberOfArticle: {
             type: Number,

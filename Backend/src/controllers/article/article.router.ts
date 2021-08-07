@@ -6,13 +6,13 @@ import { createArticle, getArticle, updateArticle, deleteArticle } from "./artic
 export const articleRouter: express.Router = express.Router();
 
 // get a Article
-articleRouter.get('/getArticle', timelog, wrapAsync(getArticle));
+articleRouter.get('/', wrapAsync(getArticle));
 
 // create new Article
-articleRouter.post( '/createArticle', timelog, wrapAsync(createArticle));
+articleRouter.post( '/', wrapAsync(createArticle));
 
 // create update Article
-articleRouter.put( '/updateArticle', timelog, wrapAsync(updateArticle));
+articleRouter.put( '/', wrapAsync(updateArticle));
 
 // delete Article
-articleRouter.delete( '/deleteArticle', timelog, wrapAsync(deleteArticle));
+articleRouter.delete( '/', wrapAsync(deleteArticle));

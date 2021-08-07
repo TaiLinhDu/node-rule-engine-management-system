@@ -2,11 +2,11 @@ FROM node:14
 
 WORKDIR .
 
-COPY evana-api/package*.json ./
+COPY Backend/package*.json ./
 
 RUN npm ci
 
-COPY evana-api .
+COPY Backend .
 
 RUN npm run build
 

@@ -9,10 +9,9 @@ import uniqueValidator from 'mongoose-unique-validator';
  * @extends {mongoose.Document}
  */
 export interface IOrderModel extends mongoose.Document {
-    title: string;
-    description: string;
-    solution: string;
-    finish: boolean;
+    price: Number;
+    oderDate: Date;
+    status: Number;
 }
 
 /**
@@ -22,24 +21,19 @@ export interface IOrderModel extends mongoose.Document {
  */
 export const OrderSchema: mongoose.Schema = new mongoose.Schema({
 
-        title: {
-            type: String,
+        oderDate: {
+            type: Date,
             required: true,
-            unique: true,
-            index: true
+            unique: false,
         },
-        description: {
-            type: String,
+        price: {
+            type: Number,
             require: true,
             default: ''
         },
-        solution: {
-            type: String,
+        status:  {
+            type: Number,
             require: true,
-            default: ''
-        },
-        finish:  {
-            type: Boolean,
             default: false
         }
     },

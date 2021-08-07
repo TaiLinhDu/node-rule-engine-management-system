@@ -19,7 +19,7 @@ export interface IUserModel extends mongoose.Document {
 	phoneNumber?: string;
     company?: string;
 	passwordHash: string;
-	isAdmin: boolean;
+	userRole: Number; //1.Admin 2.Editing Rule 3.Normal User
 	isConfirm: boolean;
 	profileImageUrl?: string;
 	created_at: Date;
@@ -54,8 +54,8 @@ export const UserSchema: mongoose.Schema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		isAdmin: {
-			type: Boolean,
+		userRole: {
+			type: Number,
 			required: true,
 			default: false,
 		},

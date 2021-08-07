@@ -6,12 +6,10 @@
 import express from 'express';
 
 /** Module imports */
-import { logTime } from '../../middlewares/timelogger.middleware';
 import { wrapAsync } from '../../middlewares/errorhandler.middleware';
 import {
 	deleteAllUsers,
 	login,
-	exportUsersAsCsv,
 	registerUser,
 	confirmEmail,
 	createUser,
@@ -30,19 +28,16 @@ export const userRouter: express.Router = express.Router({ mergeParams: true });
 // userRouter.get('/get_all/:token', logTime, wrapAsync(getAllUsers));
 
 /** CREATE */
-userRouter.post('/register', logTime, wrapAsync(registerUser));
-
-/** Download as CSV data */
-userRouter.get('/download', logTime, wrapAsync(exportUsersAsCsv));
+userRouter.post('/register', wrapAsync(registerUser));
 
 /** Delete all activities in the database */
-userRouter.delete('/delete_all', logTime, verifyToken, wrapAsync(deleteAllUsers));
+userRouter.delete('/delete_all', verifyToken, wrapAsync(deleteAllUsers));
 
 /** READ BY email and address with query ?email=..&&address=.. */
-userRouter.post('/login', logTime, wrapAsync(login));
+userRouter.post('/login', wrapAsync(login));
 
 /** AUTO LOGIN WITH TOKEN */
-userRouter.get('/login/:token', logTime, wrapAsync(loginByToken));
+userRouter.post('/loginbytoken/', wrapAsync(loginByToken));
 
 // TODO delete unnecessary route
 /** UPDATE */
@@ -53,19 +48,19 @@ userRouter.get('/login/:token', logTime, wrapAsync(loginByToken));
 // userRouter.delete('/delete/:token', logTime, wrapAsync(deleteSingleUserWithToken));
 
 /** CONFIRM EMAIL */
-userRouter.get('/confirm_email/:token', logTime, wrapAsync(confirmEmail));
+userRouter.get('/confirm_email/:token', wrapAsync(confirmEmail));
 
 /** READ ALL */
-userRouter.get('/', logTime, verifyToken, wrapAsync(getUsers));
+userRouter.get('/', verifyToken, wrapAsync(getUsers));
 
 /** CREATE */
-userRouter.post('/', logTime, verifyToken, wrapAsync(createUser));
+userRouter.post('/', verifyToken, wrapAsync(createUser));
 
 /** READ BY ID */
-userRouter.get('/:userid', logTime, verifyToken, wrapAsync(getSingleUser));
+userRouter.get('/:userid', verifyToken, wrapAsync(getSingleUser));
 
 /** UPDATE */
-userRouter.put('/:userid', logTime, verifyToken, wrapAsync(updateSingleUser));
+userRouter.put('/:userid', verifyToken, wrapAsync(updateSingleUser));
 
 /** DELETE */
-userRouter.delete('/:userid', logTime, verifyToken, wrapAsync(deleteSingleUser));
+userRouter.delete('/:userid', verifyToken, wrapAsync(deleteSingleUser));

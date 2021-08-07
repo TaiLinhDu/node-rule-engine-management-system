@@ -1,8 +1,19 @@
 {
   "database": {
-    "host": "mongodb://localhost:27017/evana"
+    "host": "mongodb://mongo:27017/ecommer-app"
   },
   "server": {
     "port": 3000
+  },
+  "email": {
+    "service-name": "gmail",
+    "service-host": "smtp.google.com",
+    "service-secure": "false",
+    "service-port": 587,
+    "user-name": "garbage.hunter.2019@gmail.com",
+    "user-password": "Sommersemester2019"
+  },
+  "jwt": {
+    "secret-key": "my-secret-key-from-linh"
   }
 }

@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {globalRouter} from "./controllers/router";
 import {globalErrorHandler} from "./middlewares/errorhandler.middleware";
+var cors = require('cors');
 
 
 /** DB init*/
@@ -19,6 +20,7 @@ mongoose.connect(DB_HOST ,{
 
 
 /** Express init*/
+app.use(cors())
 app.use(express.json());
 app.use('/api', globalRouter);
 app.use(globalErrorHandler);

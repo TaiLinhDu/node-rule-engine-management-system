@@ -11,6 +11,13 @@ services:
       - mongo
     build:
       context: ./
-      dockerfile: evana-api/docker/Dockerfile
+      dockerfile: Docker/docker-backend/Dockerfile
     ports:
       - "3000:3000"
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: Docker/docker-frontend/Dockerfile
+    ports:
+      - "80:80"

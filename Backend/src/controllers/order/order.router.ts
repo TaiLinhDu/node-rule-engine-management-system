@@ -6,13 +6,13 @@ import { createOrder, getOrder, updateOrder, deleteOrder } from "./order.control
 export const orderRouter: express.Router = express.Router();
 
 // get a Order
-orderRouter.get('/getOrder', timelog, wrapAsync(getOrder));
+orderRouter.get('/', timelog, wrapAsync(getOrder));
 
 // create new Order
-orderRouter.post( '/createOrder', timelog, wrapAsync(createOrder));
+orderRouter.post( '/', timelog, wrapAsync(createOrder));
 
 // create update Order
-orderRouter.put( '/updateOrder', timelog, wrapAsync(updateOrder));
+orderRouter.put( '/', timelog, wrapAsync(updateOrder));
 
 // delete Order
-orderRouter.delete( '/deleteOrder', timelog, wrapAsync(deleteOrder));
+orderRouter.delete( '/', timelog, wrapAsync(deleteOrder));
