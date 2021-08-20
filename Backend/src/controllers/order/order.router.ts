@@ -1,7 +1,8 @@
 import express from 'express';
 import { timelog } from "../../middlewares/timelogger.middleware";
 import { wrapAsync } from "../../middlewares/errorhandler.middleware";
-import { createOrder, getOrder, updateOrder, deleteOrder } from "./order.controller";
+import { createOrder, getOrder, updateOrder, deleteOrder, calculationPrice } from "./order.controller";
+import { verifyToken } from '../../middlewares/authorization.middleware';
 
 export const orderRouter: express.Router = express.Router();
 
@@ -9,10 +10,14 @@ export const orderRouter: express.Router = express.Router();
 orderRouter.get('/', timelog, wrapAsync(getOrder));
 
 // create new Order
-orderRouter.post( '/', timelog, wrapAsync(createOrder));
+orderRouter.post( '/', verifyToken, wrapAsync(createOrder));
 
 // create update Order
 orderRouter.put( '/', timelog, wrapAsync(updateOrder));
 
 // delete Order
 orderRouter.delete( '/', timelog, wrapAsync(deleteOrder));
+
+
+// get a Order
+orderRouter.post('/calculation', verifyToken, wrapAsync(calculationPrice));

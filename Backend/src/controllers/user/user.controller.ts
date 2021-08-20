@@ -18,6 +18,8 @@ import {
 	sendForbidden,
 } from '../../helpers/request-response-helper/response-status';
 
+import { checkJwt } from '../../helpers/json-web-token/json-web-token-helper'
+
 // secret key use to create token
 const myJWTSecretKey = config.get<string>('jwt.secret-key');
 
@@ -199,18 +201,6 @@ export const loginByToken = async (req: Request, res: Response) => {
 	}
 };
 
-/**
- * check Token from user each request
- * @param token
- * @returns return the User or null
- */
-export const checkJwt = (token: string) => {
-	if (myJWTSecretKey) {
-		const jwtPayload = <any>jwt.verify(token, myJWTSecretKey);
-		return jwtPayload;
-	}
-	return null;
-};
 
 /**
  * change user information after user confirm email

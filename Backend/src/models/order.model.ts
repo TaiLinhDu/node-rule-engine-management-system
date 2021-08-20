@@ -11,7 +11,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 export interface IOrderModel extends mongoose.Document {
     price: Number;
     oderDate: Date;
-    status: Number;
+    status: Number; // 1 order 2// unterwegs 3//zugestellt
 }
 
 /**
