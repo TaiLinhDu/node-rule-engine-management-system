@@ -21,3 +21,10 @@ services:
       dockerfile: Docker/docker-frontend/Dockerfile
     ports:
       - "80:80"
+
+  # rule:
+  #   build:
+  #     context: ./
+  #     dockerfile: Docker/docker-json-rule-editor/Dockerfile
+  #   ports:
+  #     - "8081:8081"

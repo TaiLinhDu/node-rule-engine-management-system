@@ -19,6 +19,8 @@ import {
 } from '../../helpers/request-response-helper/response-status';
 
 import { checkJwt } from '../../helpers/json-web-token/json-web-token-helper'
+import { checkUserRole } from '../../helpers/check-userrole/check-userrole';
+import { RoleNumberEnum } from '../../helpers/global-object-helper/global-object';
 
 // secret key use to create token
 const myJWTSecretKey = config.get<string>('jwt.secret-key');
@@ -30,9 +32,12 @@ const myJWTSecretKey = config.get<string>('jwt.secret-key');
  */
 export const getUsers = async (req: Request, res: Response) => {
 	jwt.verify(req.body.token, myJWTSecretKey, async (error: any, userData: any) => {
+
+		console.log("CHECK ADMIN RESULT", await checkUserRole(userData, RoleNumberEnum.Admin));
+		
 		if (error) {
 			sendForbidden(res, error.message);
-		} else if (userData && !userData.isAdmin) {
+		} else if (userData && !(userData.isAdmin) && !(await checkUserRole(userData, RoleNumberEnum.Admin))) {
 			sendForbidden(res, 'you must be an admin, to access this API');
 		} else {
 			const users: IUserModel[] = await user.find(req.query);
@@ -142,7 +147,7 @@ export const deleteAllUsers = async (req: Request, res: Response) => {
 		jwt.verify(req.body.token, myJWTSecretKey, async (error: any, userData: any) => {
 			if (error) {
 				sendForbidden(res, error.message);
-			} else if (userData && !userData.isAdmin) {
+			} else if (userData && !userData.isAdmin && !(await checkUserRole(userData, RoleNumberEnum.Admin))) {
 				sendForbidden(res, 'you must be an admin, to access this API');
 			} else {
 				await user.deleteMany({});
@@ -166,11 +171,9 @@ export const login = async (req: Request, res: Response) => {
 					// sign with default (HMAC SHA256)
 					const token = jwt.sign(singleUser.toJSON(), myJWTSecretKey);
 					res.status(200).send({
-						data: {
-							status: 'success',
-							docs: singleUser,
-							token: token,
-						},
+						status: 'success',
+						docs: singleUser,
+						token: token,
 					});
 				// if (singleUser.isConfirm) {
 					

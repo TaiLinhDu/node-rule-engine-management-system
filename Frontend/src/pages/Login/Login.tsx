@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import axios from 'axios-orders';
+import axios from 'axios-backend';
 
 const Login = () => {
     let history = useHistory();
@@ -10,6 +10,7 @@ const Login = () => {
 
     useEffect (() => {
         localStorage.clear();
+        sessionStorage.clear();
     },[]);
 
     const loginHandler = (e: any) => {
@@ -20,10 +21,15 @@ const Login = () => {
             password: password
         })
         .then(function (res) {
-            // console.log(res);
-            localStorage.setItem('token', res.data.token);
-            sessionStorage.setItem('use', res.data.docs);
-            history.push("/home");
+            if (res.status === 200){
+                console.log(axios);
+                localStorage.setItem('token', res.data.token);
+                sessionStorage.setItem('user', JSON.stringify(res.data.docs));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                alert("welcome back")
+                setTimeout(() => {history.push("/home")}, 1000);
+            }
+
           })
         .catch(function (error) {
             alert(error);

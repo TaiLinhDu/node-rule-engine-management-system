@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios-orders';
+import axios from 'axios-backend';
 
 interface OrderArticle {
     articleId: string,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios-orders';
+import axios from 'axios-backend';
 
 
 const Register = (props: any) => {
@@ -20,7 +20,6 @@ const Register = (props: any) => {
             axios.post('/user/register', {
                 email: email,
                 name: name,
-                company: company,
                 password: password
             })
             .then(function (response) {
@@ -43,10 +42,6 @@ const Register = (props: any) => {
                 <div>
                     <label>Name</label>
                     <input type="text" onChange={(e) => {setName(e.target.value)}}/>
-                </div>
-                <div>
-                    <label>Company</label>
-                    <input type="text" onChange={(e) => {setCompany(e.target.value)}}/>
                 </div>
                 <div>
                     <label>Password</label>

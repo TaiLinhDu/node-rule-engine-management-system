@@ -12,11 +12,9 @@ export /**
  */
 const sendSuccess = (res: Response, docs: any, message?: string): void => {
 	res.status(200).send({
-		data: {
-			status: 'success',
-			message: message,
-			docs: docs,
-		},
+		status: 'success',
+		message: message,
+		docs: docs,
 	});
 };
 
@@ -27,10 +25,8 @@ export /**
  */
 const sendCreated = (res: Response, docs: any): void => {
 	res.status(201).send({
-		data: {
-			status: 'success',
-			docs: docs,
-		},
+		status: 'success',
+		docs: docs,
 	});
 };
 
@@ -41,10 +37,8 @@ export /**
  */
 const sendBadRequest = (res: Response, message: string): void => {
 	res.status(400).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };
 
@@ -55,10 +49,8 @@ export /**
  */
 const sendUnauthorized = (res: Response, message: string): void => {
 	res.status(401).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };
 
@@ -69,10 +61,8 @@ export /**
  */
 const sendForbidden = (res: Response, message: string): void => {
 	res.status(403).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };
 
@@ -83,10 +73,8 @@ export /**
  */
 const sendNotFound = (res: Response, message: string): void => {
 	res.status(404).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };
 
@@ -97,10 +85,8 @@ export /**
  */
 const sendUnprocessable = (res: Response, message: string): void => {
 	res.status(422).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };
 
@@ -111,9 +97,7 @@ export /**
  */
 const sendInternalError = (res: Response, message: string): void => {
 	res.status(500).send({
-		data: {
-			status: 'error',
-			message: message,
-		},
+		status: 'error',
+		message: message,
 	});
 };

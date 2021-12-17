@@ -3,8 +3,9 @@ import { sendSuccess, sendCreated } from "../../helpers/response.helper";
 import { dbOrder, IOrderModel } from "../../models/order.model";
 import { dbArticle, IArticleModel } from "../../models/article.model";
 import { checkJwt } from '../../helpers/json-web-token/json-web-token-helper';
-
-
+const { Engine } = require('json-rules-engine');
+const path = require('path');
+const fs = require('fs');
 
 export const getOrder = async (req: Request, res: Response) => {
     const order: IOrderModel | null = await dbOrder.findById(req.query.orderid);
@@ -73,6 +74,44 @@ interface OrderArticle {
  * @param userId 
  */
 const calPrice = (listOrderArticles: OrderArticle[], userEmail: string) => {
+
+    let jsonPath = path.join(__dirname, '..', '..', 'rules', 'price-calculation.json');
+    let rawdata = fs.readFileSync(jsonPath, 'utf8');
+    let rulesObject= JSON.parse(rawdata);
+    console.log(rulesObject);
+
+    let engine = new Engine(rulesObject.decisions);
+
+    let sumPrice = 0.00;
+    for (let orderArticle of listOrderArticles){
+        sumPrice = sumPrice + Number(Number(orderArticle.articlePrice) * Number(orderArticle.numberOfOrderedArticle));
+    }
+
+    let shippingCost = 0.00;
+    let endPrice = 0.00;
+    let tax = 0.19;
+
+    let facts = {
+        partnerEmail: userEmail.split('@')[1],
+        totalPrice: sumPrice,
+        dateInMilliseconds: Date.now()    
+    }
+
+
+    engine
+    .run(facts)
+    .then((events: any) => {
+        console.log(events)
+    })
+
+    return {
+        shippingCost: shippingCost,
+        sumPrice: sumPrice,
+        endPrice: endPrice === 0.00 ? sumPrice : endPrice,
+    }
+
+    /*
+
     // listArticles.map(async (orderedArticle: OrderArticle) => {
     //     const thisArticle = await dbArticle.findById();
     // })
@@ -84,9 +123,11 @@ const calPrice = (listOrderArticles: OrderArticle[], userEmail: string) => {
 
     console.log(sumPrice);
 
-    let shippingCost = 4.99;
+    let shippingCost = 0.00;
 
     let endPrice = 0.00;
+
+    let tax = 0.19;
 
     // partner company
     if ( listOfPartnerCompany.includes(userEmail) && sumPrice > 200){
@@ -96,6 +137,7 @@ const calPrice = (listOrderArticles: OrderArticle[], userEmail: string) => {
     }
 
     // Events
+    // new: 15.09.2021 - 22.09.2021 und 1.12.2021 - 2.12.2021
     // 01.09.2021 - 10.09.2021: Versandkosten free all thing
     let startZeit = new Date("09/01/2021 00:00:00").getTime();
     let endZeit = new Date("09/10/2021 00:00:00").getTime();
@@ -104,9 +146,9 @@ const calPrice = (listOrderArticles: OrderArticle[], userEmail: string) => {
         shippingCost = 0.00;
     }
     
-    // shipping free
-    if (sumPrice > 40) {
-        shippingCost = 0.00;
+    // shipping
+    if (sumPrice < 40 && !listOfPartnerCompany.includes(userEmail)) {
+        shippingCost = 4.99;
     }
 
     return {
@@ -114,4 +156,6 @@ const calPrice = (listOrderArticles: OrderArticle[], userEmail: string) => {
         sumPrice: sumPrice,
         endPrice: endPrice === 0.00 ? sumPrice : endPrice,
     }
+
+    */
 }
