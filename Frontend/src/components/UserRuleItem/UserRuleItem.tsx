@@ -52,7 +52,7 @@ const UserRuleItem = (props: UserRuleItemProps) => {
 
         if (!userBusiessRuleList.some(userRule => userRule._id == event.target.value) && props.user._id){
             const newUserRule: IUserBusinessrule = {
-                businessRuleId: event.target.value,
+                businessruleId: event.target.value,
                 userId: props.user._id
             }
             userBusinessruleService.postNewUserBusinessrule(newUserRule)
@@ -99,7 +99,7 @@ const UserRuleItem = (props: UserRuleItemProps) => {
                             {userBusiessRuleList && userBusiessRuleList.map(userBusinessRule => 
                                 <UserBusinessRuleSetItem 
                                     userBusinessRule={userBusinessRule} 
-                                    ruleSetName={businessRuleSetList.find(ruleSet => ruleSet._id === userBusinessRule._id)?.name} 
+                                    ruleSetName={businessRuleSetList.find(ruleSet => ruleSet._id === userBusinessRule.businessruleId)?.name} 
                                     onDeleteUserRule={onDeleteUserRule}
                                 />)}
                         </div>

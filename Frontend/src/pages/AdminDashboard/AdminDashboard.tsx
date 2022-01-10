@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
   const history = useHistory();
 
-  let getAllUserRolePromise = userRoleService.getUserRoles({userId: user._id});;
+  let getAllUserRolePromise = userRoleService.getUserRoles({userId: user._id});
 
   useEffect(() => {
 
@@ -109,7 +109,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <>
+    <div>
       User Role Management: <br />
       List of Role User: <br />
 
@@ -156,7 +156,7 @@ const AdminDashboard = () => {
         })}
       </div>
 
-    </>
+    </div>
   );
 }
 

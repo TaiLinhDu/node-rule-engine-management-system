@@ -1,5 +1,5 @@
 export interface IUserBusinessrule {
     _id?: string;
-    businessRuleId: string;
+    businessruleId: string;
     userId: string;
 }
