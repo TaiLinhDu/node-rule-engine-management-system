@@ -1,12 +1,12 @@
 # Prototyp zur Verwaltung der Geschäftsregeln
+Die Anwendung ermöglicht es Ihnen, Geschäftsregeln zu verwalten (Wenn ...,Dann ...). Die Anwendung ermöglicht es Ihnen als Administrator, anderen Benutzern Rollen oder Zugriffsrechte auf Geschäftsregelsätze zuzuweisen. Die Benutzer mit den Zugriffsrechten sind berechtigt, die Geschäftsregeln zu lesen und zu bearbeiten. 
 
-Die Anwendung ermöglicht es Ihnen, Geschäftsregeln (Wenn ...,dann ...) zu verwalten. Bei der Anwendung können Sie als Admin Rollen bzw. Zugriffsrechten auf Geschäftsregelnsätzen an anderen Nutzer vergeben. Die Nutzer mit derm Zugriffsrecht dürten die Geschäftsregeln einlesen und verarbeiten. 
+Das Projekt bietet eine Anwendung mit Benutzerverwaltung, Rollenverwaltung, Geschäftsregelverwaltung.
 
-Das Projekt bietet eine Anwendung mit der Benutzerverwaltung, Rollenverwaltung, Geschäftsregelverwaltung.
+* Benutzerverwaltung ermöglicht die Authentifizierung von Benutzern
+* Rollenverwaltung ermöglicht den rollenbasierten Zugriff auf Ressourcen
+* Die Geschäftsregelverwaltung bietet die Möglichkeit, Geschäftsregelsätze zu erstellen und zu bearbeiten. Für die Speicherung der Geschäftsregelsätze steht hier ein Repository zur Verfügung.
 
-* Benutzerverwaltung ermöglicht die Authentifizierung der Nutzer
-* Rollenverwaltung ermöglicht die rollenbasierte Zugriff auf die Ressourcen
-* Geschäftsregelverwaltung bietet die Möglicheit, Geschäftsregelsatz zu erstellen und zu bearbeiten. Ein Repository steht hier für die Abspeichern der Geschäftsregelsätzen zur Verfügung.
 
 
 Das Projekt benutzt  
@@ -53,39 +53,49 @@ Die Anwendung beinhalte die Hauptwebseiten:
 * `/ruleeditor`
 
 ### Benutzerverwaltung
-In der Seite `/register` könnte jeder einen Benutzer registriert und in der Seite `/login` einloggen.
+Auf der Seite `/register` konnte sich jeder als Benutzer registrieren und auf der Seite `/login` anmelden.
 
 ### Rollenverwaltung
-Administrator hat den Recht, Rolle an anderen Nutzer zu vergeben. Standardmäßig gibt es 2 Rollen: Admin und BusinessRuleAdmin
-* Admin ist Administrator für das ganze Prototyp, der den Recht hast, Rollen und Business-Rule an anderen Nutzer zu vergeben. Darüber hinaus hat er den Recht auf die Verwaltung der Nutzer.
+Der Administrator hat das Recht, anderen Benutzern Rollen zuzuweisen. Standardmäßig gibt es 2 Rollen: Admin und BusinessRuleAdmin
+* Admin ist der Administrator für den gesamten Prototyp, der das Recht hat, anderen Benutzern Rollen und Geschäftsregeln zuzuweisen. Darüber hinaus hat er das Recht, die Benutzer zu verwalten.
 
-* BusinessRuleAdmin ist Administrator für die Geschäftsregelverwaltung. Mit der Rolle hat man den Recht, alle Geschäftsregelsätzen in dem System zuzugreifen und zu verarbeiten.
+* BusinessRuleAdmin ist der Administrator für die Verwaltung der Geschäftsregeln. Mit dieser Rolle haben Sie das Recht, auf alle Geschäftsregelsätze im System zuzugreifen und diese zu bearbeiten.
 
-Die weitere Rolle können Sie als Entwickler noch in dem System hinzufügen.
+Als Entwickler können Sie dem System eine weitere Rolle hinzufügen.
 
 ### Geschäftsregelverwaltung
-In dem System können Sie Geschäftsregeln erstellen, bearbeiten und überprüfen und absichern. 
+Im System können Sie Geschäftsregeln erstellen, bearbeiten, überprüfen und speichern.
 
 
 ## Benutzung der Anwendung
 
-### Rollen  und Zugriffsrecht auf individuelle Geschäftsregelsatz vergeben
-Nachdem Sie als Admin eingeloggt haben, dürfen Sie auf die Seite `/admindashboard` zugreifen. Hier könnten Sie die Rollen an anderen Nutzer und die Zugriffsrecht auf individuelle Geschäftsregelsatz vergeben.
+### Rollen und Zugriffsrecht auf individuelle Geschäftsregelsatz vergeben
+Nachdem Sie sich als Administrator angemeldet haben, können Sie auf die Seite `/admindashboard` zugreifen. Hier können Sie die Rollen anderen Benutzern zuweisen und die Zugriffsrechte für einzelne Geschäftsregeln festlegen.
+
+***Rollen vergeben***
+Als Administrator können Sie jedem Benutzer eine bis mehrere Rollen zuweisen. Ein Benutzer kann eine bis mehrere Rollen behalten.
+![user role management](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
+
+***Zugriffsrecht auf individuelle Geschäftsregelsatz vergeben***
+Als Administrator können Sie auch jeder Person Zugriffsrechte auf einzelne Geschäftsregelsätze zuweisen. Der Benutzer darf nur den Geschäftsregelsatz auf der Seite `/ruledashboard` bearbeiten.
+![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
 
 ### Geschäftsregelsatz bearbeiten
 
-Nachdem Sie als Business-Rule-Admin eingeloggt haben, dürfen Sie die Seite `/ruledashboard` zugreifen.
+Wenn Ihnen die Rolle "Business-Rule-Admin" oder ein Zugriffsrecht auf einen einzelnen Geschäftsregelsatz zugewiesen wurde, können Sie auf die Seite `/ruledashboard` zugreifen. Dort können Sie die Geschäftsregelsätze exportieren oder importieren. Der Zweck der Seite besteht darin, die Geschäftsregelsätze zu bearbeiten. Aus diesem Grund wird jeder Schritt des Prozesses dargestellt.
 
-Da können Sie die Geschäftsregelsatz exportieren bzw. importieren.
+![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/rule_dashboard.PNG)
 
-https://vinzdeveloper.github.io/json-rule-editor/docs/images/create-upload.png
+***Schritt1***
+Geschäftsregelsatz auswählen und herunterladen (Export)
 
-https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/individual_rule_acess_right.PNG
-
-![user role management](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
-
-![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
-
-
+***Schritt2***
+Gehen Sie zur Oberfläche für die Bearbeitung des Geschäftsregelsatzes
 
 Zum Bearbeiten der Geschäftsregeln sollten Sie die einen Überblick auf das Webinterface haben [Json-Rule-Editor Dokumente](https://github.com/vinzdeveloper/json-rule-editor/blob/master/docs/manage-rules.md)
+
+***Schritt3***
+Nach der Bearbeitung haben Sie einen neuen Geschäftsregelsatz in Form einer JSON-Datei erstellt. Sie sollten das Geschäftsregelwerk in dem Schritt auswählen, in dem die Aktualisierung stattfindet.
+
+***Schritt4***
+Sie laden den bearbeiteten Satz von Geschäftsregeln hoch (Import).

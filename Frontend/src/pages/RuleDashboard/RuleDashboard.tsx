@@ -51,7 +51,7 @@ const RuleDashboard = (props: any) => {
                     )
                 ) {
                     alert("You have no right to access this Ressource")
-                    history.push("/home")
+                    setTimeout(()=> {history.push("/home")}, 1000)
                 }
 
                 let businessruleList: Array<IBusinessrule> = [];
@@ -83,10 +83,11 @@ const RuleDashboard = (props: any) => {
                                 const fetchedUserBusinessRule: IBusinessrule = res.data.docs;
                                 businessruleList.push(fetchedUserBusinessRule);
                                 if (index === (userBusinessruleList.length - 1)){
-                                    let cloneBusinessruleLsist = _.cloneDeep(businessruleList);
-                                    setBusinessRuleObjectList(businessruleList);
+                                    let cloneBusinessruleList = _.cloneDeep(businessruleList);
+                                    setBusinessRuleObjectList(cloneBusinessruleList);
                                 }
                                 console.log("BUSINESS RULE:", res.data.docs)
+                                console.log("businessRuleObjectList",businessRuleObjectList)
                             }
                         })
                         .catch(err => {
@@ -97,7 +98,7 @@ const RuleDashboard = (props: any) => {
             })
         } else {
             alert("You have no right to access this Ressource")
-            history.push("/home")
+            setTimeout(()=> {history.push("/home")}, 1000)
         }
 },[]);
  
@@ -187,7 +188,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         Download actual business rule from repository (Export) <br />
         <select ref={selectBusinessRuleToDownloadRef} onChange={selectBusinessRuleToDownloadOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
-            {businessRuleObjectList?.map(elem => {
+            {businessRuleObjectList && businessRuleObjectList?.map(elem => {
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
@@ -198,16 +199,16 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         2. add this rule in business-rule-editor and update it <br />
         <a href="/ruleeditor" target='_blank'> Go to business-rule-editor</a> <br />  <br />
 
-        3. Choose business rule to update <br />
+        3. Choose business rule set to update <br />
         <select ref={selectBusinessRuleToUpdateRef} onChange={selectBusinessRuleToUpdateOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
-            {businessRuleObjectList?.map(elem => {
+            {businessRuleObjectList && businessRuleObjectList?.map(elem => {
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
         </select>  <br />  <br />
 
-        4. Opload updated business rule (Import) <br />
+        4. Upload updated business rule set (Import) <br />
         <input type="file"  onChange={selectFileOnchangeHanlder}/> <br />
         <button type="button" onClick={fileUploadHandler}>Upload</button>  <br />  <br />
 

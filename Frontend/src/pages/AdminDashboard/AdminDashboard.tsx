@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
           if (!user || (user && !user.isAdmin && !fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.Admin))) {
             alert("You have no right to access this Ressource")
-            setInterval(()=> {history.push("/home")}, 1000)
+            setTimeout(()=> {history.push("/home")}, 1000)
           }
         }
       })
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
 
     } else {
       alert("You have no right to access this Ressource")
-      setInterval(()=> {history.push("/home")}, 1000)
+      setTimeout(()=> {history.push("/home")}, 1000)
     }
   }, []);
 
