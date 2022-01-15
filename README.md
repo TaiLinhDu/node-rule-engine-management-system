@@ -80,9 +80,11 @@ Da können Sie die Geschäftsregelsatz exportieren bzw. importieren.
 
 https://vinzdeveloper.github.io/json-rule-editor/docs/images/create-upload.png
 
-![user role management](https://github.com/TaiLinhDu/node-rule-engine/Docs/Images/user_role_management.PNG)
+https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/individual_rule_acess_right.PNG
 
-![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/Docs/Images/user_role_management.PNG)
+![user role management](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
+
+![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
 
 
 

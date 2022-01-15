@@ -51,7 +51,7 @@ const RuleDashboard = (props: any) => {
                     )
                 ) {
                     alert("You have no right to access this Ressource")
-                    setTimeout(()=> {history.push("/home")}, 1000)
+                    history.push("/home")
                 }
 
                 let businessruleList: Array<IBusinessrule> = [];
@@ -75,10 +75,13 @@ const RuleDashboard = (props: any) => {
                     let userBusinessruleList: Array<IUserBusinessrule> = fetchedUserBusinessRuleList;
                     userBusinessruleList.forEach((elem: IUserBusinessrule, index)  => {
                         // Get Business Rule
+                        console.log("ELEMENT:", elem)
+                        console.log("INDEX:", index)
                         businessruleService.getBusinessrules({ _id: elem.businessruleId})
                         .then((res) => {
                             if (res.status === 200) {
-                                businessruleList.push(res.data.docs);
+                                const fetchedUserBusinessRule: IBusinessrule = res.data.docs;
+                                businessruleList.push(fetchedUserBusinessRule);
                                 if (index === (userBusinessruleList.length - 1)){
                                     let cloneBusinessruleLsist = _.cloneDeep(businessruleList);
                                     setBusinessRuleObjectList(businessruleList);
@@ -94,7 +97,7 @@ const RuleDashboard = (props: any) => {
             })
         } else {
             alert("You have no right to access this Ressource")
-            setTimeout(()=> {history.push("/home")}, 1000)
+            history.push("/home")
         }
 },[]);
  
@@ -117,7 +120,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
 
     const businessRuleFileDownloadHandler = async (event: any) => {
         console.log("SELECTED ID" + selectedBusinessruleIdToDownload)
-        if (selectedBusinessruleIdToDownload){
+        if (selectedBusinessruleIdToDownload && selectedBusinessruleIdToDownload !== "-1"){
             let res = await businessruleService.getBusinessrules({ _id: selectedBusinessruleIdToDownload})
             if (res && res.status === 200){
                 console.log(JSON.parse(res.data.docs[0].rules));
@@ -130,7 +133,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
                 alert ("get business rule successfully");
             }
         } else {
-            alert("pls select one set of business rule to download");
+            alert("please select one set of business rule to download");
         }
 
 
