@@ -8,6 +8,7 @@ import { businessruleService } from 'services/businessruleService/businessrule-s
 import { userBusinessruleService } from 'services/userBusinessruleService/user-businessrule-service';
 import { userRoleService } from 'services/userRoleService.ts/user-role-service.ts';
 import { useHistory } from "react-router-dom";
+import _ from 'lodash';
 
 const RuleDashboard = (props: any) => {
 
@@ -23,36 +24,46 @@ const RuleDashboard = (props: any) => {
     const selectBusinessRuleToDownloadRef = useRef<HTMLSelectElement>(null);
     const selectBusinessRuleToUpdateRef = useRef<HTMLSelectElement>(null);
 
-    const [userRoleList, setUserRoleList] = useState<Array<IUserRole>>() ;
-    let getAllUserRolePromise = userRoleService.getUserRoles({userId: user._id});
+    const [userRoleList, setUserRoleList] = useState<Array<IUserRole>>();
+    const [userBusinessRuleList, setUserBusinessRuleList] = useState<Array<IUserBusinessrule>>();
     
+
     const history = useHistory();
     useEffect(() => {
-
-
         if (user) {
-            // Get User Role
-            getAllUserRolePromise
-            .then (res => {
-              if (res.status === 200) {
-                console.log("USER ROLE", res.data.docs);
-                let fetchedUserRoleList = res.data.docs;
+
+            let getUserRolePromise = userRoleService.getUserRoles({userId: user._id});
+            let getUserBusinessRulePromise =  userBusinessruleService.getUserBusinessrules({userId: user._id})
+            Promise.all([getUserRolePromise,getUserBusinessRulePromise])
+            .then (arrayValue => {
+                let fetchedUserRoleList = arrayValue[0].data.docs;
                 setUserRoleList(fetchedUserRoleList);
-      
-                if (!user || (user && !fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.RulesAdmin))) {
-                  history.push("/home");
+
+                let fetchedUserBusinessRuleList = arrayValue[1].data.docs;
+                setUserBusinessRuleList(fetchedUserBusinessRuleList);
+
+                if (
+                    !user || 
+                    (
+                        user
+                        && !fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.RulesAdmin)
+                        && fetchedUserBusinessRuleList.lenth === 0    
+                    )
+                ) {
+                    alert("You have no right to access this Ressource")
+                    setTimeout(()=> {history.push("/home")}, 1000)
                 }
 
                 let businessruleList: Array<IBusinessrule> = [];
 
                 if (fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.RulesAdmin)){
+                    
                     // Get Rules List
                     businessruleService.getBusinessrules()
                     .then((res) => {
                         if (res.status === 200 && res.data.docs) {
                             console.log(res.data.docs)
                             businessruleList = businessruleList.concat(res.data.docs);
-                            console.log(2)
                             setBusinessRuleObjectList(businessruleList);
                         }
                     })
@@ -60,41 +71,30 @@ const RuleDashboard = (props: any) => {
                         alert(err);
                     })
                 } else {
-                    // Get User Business Rule
-                    userBusinessruleService
-                    .getUserBusinessrules({userId: user._id})
-                    .then(res => {
-                        console.log(1)
-                        if (res.status === 200 && res.data.docs) {
-                            console.log(res.data.docs);
-                            let userBusinessruleList: Array<IUserBusinessrule> = res.data.docs;
-                            userBusinessruleList.forEach((elem: IUserBusinessrule, index)  => {
-                                // Get Business Rule
-                                businessruleService.getBusinessrules({ _id: elem.businessruleId})
-                                .then((res) => {
-                                    if (res.status === 200) {
-                                        businessruleList.push(res.data.docs);
-        
-                                        if (index === (userBusinessruleList.length - 1)){
-                                            setBusinessRuleObjectList(businessruleList);
-                                        }
-                                    }
-                                })
-                                .catch(err => {
-                                    alert(err);
-                                })
-                            })
-                        }
+
+                    let userBusinessruleList: Array<IUserBusinessrule> = fetchedUserBusinessRuleList;
+                    userBusinessruleList.forEach((elem: IUserBusinessrule, index)  => {
+                        // Get Business Rule
+                        businessruleService.getBusinessrules({ _id: elem.businessruleId})
+                        .then((res) => {
+                            if (res.status === 200) {
+                                businessruleList.push(res.data.docs);
+                                if (index === (userBusinessruleList.length - 1)){
+                                    let cloneBusinessruleLsist = _.cloneDeep(businessruleList);
+                                    setBusinessRuleObjectList(businessruleList);
+                                }
+                                console.log("BUSINESS RULE:", res.data.docs)
+                            }
+                        })
+                        .catch(err => {
+                            alert(err);
+                        })
                     })
-                    .catch(err => {
-                        alert(err);
-                    }) 
                 }
-              }
             })
-            .catch(err => {
-              console.log(err)
-            })
+        } else {
+            alert("You have no right to access this Ressource")
+            setTimeout(()=> {history.push("/home")}, 1000)
         }
 },[]);
  
@@ -176,9 +176,12 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
     // to do: use useRef to reference to select
 
     return (
-        <>
-        0. Choose rule to download <br />
-        1. download actual business rule from backend <br />
+        <div>
+        Rule Dashboard <br />
+        *Note: In the Rule Dashboard, you can work with the ruleset to which you have access rights. You can also easily import or export the rule set.  <br />  <br />
+
+        1. Choose rule to download <br />
+        Download actual business rule from repository (Export) <br />
         <select ref={selectBusinessRuleToDownloadRef} onChange={selectBusinessRuleToDownloadOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
             {businessRuleObjectList?.map(elem => {
@@ -186,27 +189,26 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
                 <option value={elem._id}>{elem.name}</option>)
             })}
         </select> <br />
-        <button type="button" onClick={businessRuleFileDownloadHandler}>Download</button>  <br />
+        <button type="button" onClick={businessRuleFileDownloadHandler}>Download</button>  <br />  <br />
 
 
         2. add this rule in business-rule-editor and update it <br />
-        <a href="/ruleeditor" target='_blank'> Go to business-rule-editor</a> <br />
+        <a href="/ruleeditor" target='_blank'> Go to business-rule-editor</a> <br />  <br />
 
-        3. Chose business rule to update <br />
+        3. Choose business rule to update <br />
         <select ref={selectBusinessRuleToUpdateRef} onChange={selectBusinessRuleToUpdateOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
             {businessRuleObjectList?.map(elem => {
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
-        </select>  <br />
+        </select>  <br />  <br />
 
-        4. upload updated business rule <br />
+        4. Opload updated business rule (Import) <br />
         <input type="file"  onChange={selectFileOnchangeHanlder}/> <br />
-        <button type="button" onClick={fileUploadHandler}>Upload</button>  <br />
+        <button type="button" onClick={fileUploadHandler}>Upload</button>  <br />  <br />
 
-        5. done <br />
-        </>
+        </div>
     );
 }
 

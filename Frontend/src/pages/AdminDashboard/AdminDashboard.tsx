@@ -47,9 +47,8 @@ const AdminDashboard = () => {
           setUserRoleList(fetchedUserRoleList);
 
           if (!user || (user && !user.isAdmin && !fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.Admin))) {
-            console.log("User", user)
-            console.log("Rolecheck",fetchedUserRoleList?.some((userRole: any) => userRole.roleNumber === RoleNumberEnum.Admin));
-            history.push("/home");
+            alert("You have no right to access this Ressource")
+            setInterval(()=> {history.push("/home")}, 1000)
           }
         }
       })
@@ -68,7 +67,10 @@ const AdminDashboard = () => {
         console.log(err);
       });
 
-    } 
+    } else {
+      alert("You have no right to access this Ressource")
+      setInterval(()=> {history.push("/home")}, 1000)
+    }
   }, []);
 
   /**
@@ -110,9 +112,8 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      User Role Management: <br />
-      List of Role User: <br />
-
+      USER ROLE MANAGEMENT: <br />
+      *Note:  The administrator can assign 1 to several roles to the user. 
       {/* Find user by Email to management roles <br />
 
       <label htmlFor="email">Email:</label>
@@ -121,11 +122,6 @@ const AdminDashboard = () => {
       <input type="button" value="Clear" onClick={clearSearchUserToManagementRoleHandler}/>  */}
 
       <div className="user-list">
-        <div className="title">
-          <div>Email</div>
-          <div>Userrole</div>
-          <div>Phonenumber</div>
-        </div>
         {userList && userList.map(user => {
           return (
             <UserItem user={user} />
@@ -134,8 +130,9 @@ const AdminDashboard = () => {
       </div>
 
     <br />
-     Add 1 Rule to 1 specify User: 
-      Rule Management: <br />
+
+      RULE ACCESS RIGHT FOR INDIVIDUAL USER: <br />
+      *Note:  The administrator can assign 1 to several business rules to specify the user 
       {/* Find user by Email und add Rule Engine <br />
 
       <label htmlFor="email">Email:</label>
@@ -144,18 +141,12 @@ const AdminDashboard = () => {
       <input type="button" value="Clear" onClick={clearSearchUserToManagementUserRuleHandler}/>  */}
 
       <div className="user-list">
-        <div className="title">
-          <div>Email</div>
-          <div>Rule access right: </div>
-          <div>Phonenumber</div>
-        </div>
         {userList && userList.map(user => {
           return (
             <UserRuleItem user={user} />
           )
         })}
       </div>
-
     </div>
   );
 }

@@ -13,6 +13,7 @@ import BusinessRuleEditor from 'pages/BusinessRuleEditor/BusinessRuleEditor';
 import { roleService } from 'services/roleService/role-service'
 
 import { RoleContext } from 'helper/contexts/role-context';
+import Header from 'components/Header/Header';
 
 
 function App() {
@@ -58,21 +59,20 @@ function App() {
 
   return (
     <RoleContext.Provider value={roles}>
-
       <BrowserRouter>
-        <div className="App">
-          {/* <Header /> */}
-          <Switch>
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/home" component={Home} />
-            <Route path="/ruleeditor" component={BusinessRuleEditor} />
-            <Route path="/admindashboard" component={AdminDashboard} />
-            <Route path="/ruledashboard" component={RuleDashboard} />
-            <Redirect from="/" to="/home" />
-          </Switch>
-          {/* <Footer /> */}
-        </div>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          <Route path="/home" component={Home} />
+          <Route path="/ruleeditor" component={BusinessRuleEditor} />
+          <Route path="/admindashboard" component={AdminDashboard} />
+          <Route path="/ruledashboard" component={RuleDashboard} />
+          <Redirect from="/" to="/home" />
+        </Switch>
+        {/* <Footer /> */}
+      </div>
       </BrowserRouter>
     </RoleContext.Provider>
   );

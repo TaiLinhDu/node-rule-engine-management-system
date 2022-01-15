@@ -12,7 +12,6 @@ interface UserRoleItemProps {
 
 const UserRoleItem = (props: UserRoleItemProps) => {
 
-
     const onDeleteUserRoleHandler = () => {
         if (props.userRole._id) {
             userRoleService.deleteUserRole(props.userRole._id)

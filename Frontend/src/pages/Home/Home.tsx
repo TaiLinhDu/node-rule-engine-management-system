@@ -25,14 +25,7 @@ const Home = () => {
     return (
         <>
         <div>
-            List of Articles:
-            {articles.map(article => {
-                return (
-                    <div>
-                        
-                    </div>
-                )
-            })}
+            Welcome to Prototyp Rule-Engine-Management-System under Node.Js
         </div>
 
         </>

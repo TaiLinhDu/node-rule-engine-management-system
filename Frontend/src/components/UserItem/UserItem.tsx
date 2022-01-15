@@ -13,6 +13,10 @@ interface UserItemProps {
     user: IUser;
 }
 
+const itemStyle = {
+    padding: "10px 0",
+}
+
 const UserItem = (props: UserItemProps) => {
 
     const [userRoleList, setUserRoleList] = useState<Array<IUserRole>>([]);
@@ -70,7 +74,7 @@ const UserItem = (props: UserItemProps) => {
     }
     
     return (
-        <div className="user-item">
+        <div className="user-item" style={itemStyle}>
             <div>Email: {props.user.email}</div>
             <div className='user-role'>
                 <div>Select Role To Add To This User: </div>

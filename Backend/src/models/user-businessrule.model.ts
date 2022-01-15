@@ -23,12 +23,10 @@ export const UserBusinessruleSchema: mongoose.Schema = new mongoose.Schema({
         businessruleId: {
             type: String,
             required: true,
-            index: true
         },
         userId: {
             type: String,
             required: true,
-            index: true
         }
     },
     {
@@ -38,7 +36,7 @@ export const UserBusinessruleSchema: mongoose.Schema = new mongoose.Schema({
         },
     });
 
-UserBusinessruleSchema.plugin(uniqueValidator); // prevent replicated unique key:  title
+//UserBusinessruleSchema.plugin(uniqueValidator); // prevent replicated unique key:  title
 
 
 /**

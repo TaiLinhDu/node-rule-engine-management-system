@@ -12,6 +12,10 @@ interface UserRuleItemProps {
     user: IUser;
 }
 
+const itemStyle = {
+    padding: "10px 0",
+}
+
 const UserRuleItem = (props: UserRuleItemProps) => {
 
     const [userBusiessRuleList, setUserBusiessRuleList] = useState<Array<IUserBusinessrule>>([]);
@@ -83,7 +87,7 @@ const UserRuleItem = (props: UserRuleItemProps) => {
 
     return (
         <div>
-            <div className="user-item">
+            <div className="user-item" style={itemStyle}>
                 <div className="user-info"> 
                     <div>Email: {props.user.email}</div>
                     <div className='user-rule'>
@@ -106,14 +110,8 @@ const UserRuleItem = (props: UserRuleItemProps) => {
                     </div>
                     <div>Phonenumber: {props.user.phoneNumber}</div>
                 </div>
-
-                Add Rule Access Role to this User.
-                <div className="access-business-rule-management">
-
-                </div>
             </div>
         </div>
-
     );
 }
 

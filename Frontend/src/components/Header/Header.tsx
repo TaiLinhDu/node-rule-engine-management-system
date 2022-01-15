@@ -5,13 +5,16 @@ const Header = () => {
 
     return (
         <div className="header">
-            <a className="header-item" href="google.com">Home</a>
-            <a className="header-item" href="google.com">Rule Dashboard</a>
-            <a className="header-item" href="google.com"></a>
-            <a className="header-item" href="google.com"></a>
-
+            <div>
+                <a className="header-item" href="/home">Homepage</a>
+            </div>
+            <div>
+                <a className="header-item" href="/ruledashboard">Business Rule Dashboard</a>
+            </div>
+            <div>
+                <a className="header-item" href="/admindashboard">Admin Dashboard</a>
+            </div>
         </div>
-
     );
 }
 
