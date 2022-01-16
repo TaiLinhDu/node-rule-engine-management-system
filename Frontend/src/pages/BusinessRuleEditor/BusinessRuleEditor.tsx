@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios-backend';
 
 
-
 const BusinessRuleEditor = () => {
 
-    const [articles, setArticles] = useState([]);
-    const [shoppingCart, setShoppingCart] = useState([]);
-
     return (
-        <>
+        <div className='iframe-wrapper'>
             <iframe 
-                src="https://www.json-rule-editor.com/" 
-                frameBorder="0" 
-                width="100%"
-                height="100vh">
+                src="https://www.json-rule-editor.com/"
+                frameBorder="0"
+                className='iframe-rule-editor'>
             </iframe>
-        </>
+        </div>
     );
 }
 
