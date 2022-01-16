@@ -80,7 +80,7 @@ const RuleDashboard = (props: any) => {
                         businessruleService.getBusinessrules({ _id: elem.businessruleId})
                         .then((res) => {
                             if (res.status === 200) {
-                                const fetchedUserBusinessRule: IBusinessrule = res.data.docs;
+                                const fetchedUserBusinessRule: IBusinessrule = res.data.docs[0];
                                 businessruleList.push(fetchedUserBusinessRule);
                                 if (index === (userBusinessruleList.length - 1)){
                                     let cloneBusinessruleList = _.cloneDeep(businessruleList);
@@ -189,6 +189,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         <select ref={selectBusinessRuleToDownloadRef} onChange={selectBusinessRuleToDownloadOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
             {businessRuleObjectList && businessRuleObjectList.map(elem => {
+                console.log("BUSINESSRULE OPTION1", elem)
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
@@ -203,6 +204,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         <select ref={selectBusinessRuleToUpdateRef} onChange={selectBusinessRuleToUpdateOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
             {businessRuleObjectList && businessRuleObjectList.map(elem => {
+                console.log("BUSINESSRULE OPTION2", elem)
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
