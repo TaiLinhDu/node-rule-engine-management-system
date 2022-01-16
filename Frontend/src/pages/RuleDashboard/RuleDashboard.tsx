@@ -188,7 +188,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         Download actual business rule from repository (Export) <br />
         <select ref={selectBusinessRuleToDownloadRef} onChange={selectBusinessRuleToDownloadOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
-            {businessRuleObjectList && businessRuleObjectList?.map(elem => {
+            {businessRuleObjectList && businessRuleObjectList.map(elem => {
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
@@ -202,7 +202,7 @@ const downloadFile = (data: string, fileName: string , fileType: string ) => {
         3. Choose business rule set to update <br />
         <select ref={selectBusinessRuleToUpdateRef} onChange={selectBusinessRuleToUpdateOnChange}>
             <option defaultChecked value={-1}>Select one set of businessrule</option>
-            {businessRuleObjectList && businessRuleObjectList?.map(elem => {
+            {businessRuleObjectList && businessRuleObjectList.map(elem => {
                 return(
                 <option value={elem._id}>{elem.name}</option>)
             })}
