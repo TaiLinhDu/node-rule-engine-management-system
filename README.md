@@ -78,13 +78,13 @@ Als Administrator können Sie jedem Benutzer eine bis mehrere Rollen zuweisen. E
 
 ***Zugriffsrecht auf individuelle Geschäftsregelsatz vergeben***
 Als Administrator können Sie auch jeder Person Zugriffsrechte auf einzelne Geschäftsregelsätze zuweisen. Der Benutzer darf nur den Geschäftsregelsatz auf der Seite `/ruledashboard` bearbeiten.
-![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/user_role_management.PNG)
+![individual_rule_acess_right](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/individual_rule_acess_right.PNG)
 
 ### Geschäftsregelsatz bearbeiten
 
 Wenn Ihnen die Rolle "Business-Rule-Admin" oder ein Zugriffsrecht auf einen einzelnen Geschäftsregelsatz zugewiesen wurde, können Sie auf die Seite `/ruledashboard` zugreifen. Dort können Sie die Geschäftsregelsätze exportieren oder importieren. Der Zweck der Seite besteht darin, die Geschäftsregelsätze zu bearbeiten. Aus diesem Grund wird jeder Schritt des Prozesses dargestellt.
 
-![user role management_2222](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/rule_dashboard.PNG)
+![rule_dashboard](https://github.com/TaiLinhDu/node-rule-engine/blob/main/Docs/Images/rule_dashboard.PNG)
 
 ***Schritt1***
 Geschäftsregelsatz auswählen und herunterladen (Export)
