@@ -9,6 +9,8 @@ import Home from 'pages/Home/Home';
 import AdminDashboard from 'pages/AdminDashboard/AdminDashboard';
 import RuleDashboard from 'pages/RuleDashboard/RuleDashboard';
 import BusinessRuleEditor from 'pages/BusinessRuleEditor/BusinessRuleEditor';
+import FakeOrder from 'pages/FakeOrder/FakeOrder';
+
 
 import { roleService } from 'services/roleService/role-service'
 
@@ -69,6 +71,7 @@ function App() {
           <Route path="/ruleeditor" component={BusinessRuleEditor} />
           <Route path="/admindashboard" component={AdminDashboard} />
           <Route path="/ruledashboard" component={RuleDashboard} />
+          <Route path="/fakeorder" component={FakeOrder} />
           <Redirect from="/" to="/home" />
         </Switch>
         {/* <Footer /> */}
